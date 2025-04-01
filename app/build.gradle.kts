@@ -39,8 +39,40 @@ android {
     }
 }
 
-dependencies {
 
+dependencies {
+    implementation("com.google.dagger:hilt-android:2.48") // Jetpack Compose
+    implementation("androidx.compose.ui:ui:1.5.4")
+    implementation("androidx.compose.material:material:1.5.4")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.5.4")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
+
+// Lifecycle
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+
+// Hilt (Dependency Injection)
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+
+// Permissions
+    implementation("com.google.accompanist:accompanist-permissions:0.32.0")
+
+// Navigation Bars & Status Bars Padding
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
+
+    // Accompanist Permissions
+    implementation("com.google.accompanist:accompanist-permissions:0.32.0")
+
+// Accompanist Swipe Refresh
+    implementation("com.google.accompanist:accompanist-swiperefresh:0.32.0")
+
+
+    implementation ("androidx.camera:camera-core:1.4.0")
+    implementation ("androidx.camera:camera-camera2:1.4.0")
+    implementation ("androidx.camera:camera-lifecycle:1.4.0")
+    implementation ("androidx.camera:camera-view:1.4.0")
+    implementation ("androidx.camera:camera-extensions:1.4.0")
+    implementation ("com.google.mlkit:barcode-scanning:17.0.3")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
