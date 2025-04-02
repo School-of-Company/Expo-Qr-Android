@@ -1,5 +1,6 @@
 package com.school_of_company.expoqrandroid.qr.view
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,10 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
+import com.school_of_company.expoqrandroid.R
 import com.school_of_company.expoqrandroid.qr.view.component.QrcodeScanView
-import com.school_of_company.expoqrandroid.qr.view.util.QrGuideImage
 import com.school_of_company.expoqrandroid.ui.theme.ExpoQrAndroidTheme
 import com.school_of_company.expoqrandroid.ui.theme.Typography
 import com.school_of_company.expoqrandroid.util.ThemeDevicePreviews
@@ -57,7 +60,11 @@ private fun QrScannerScreen(
                             .clip(RoundedCornerShape(6.dp))
                     )
                 }
-                QrGuideImage()
+                Image(
+                    painter = painterResource(id = R.drawable.qr_guide),
+                    contentDescription = stringResource(id = R.string.qr_guide),
+                    modifier = modifier
+                )
             }
         }
     }
