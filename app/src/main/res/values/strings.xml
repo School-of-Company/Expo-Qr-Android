@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ExpoQrAndroid</string>
+    <string name="qr_guide">큐알 가이드</string>
 </resources>
