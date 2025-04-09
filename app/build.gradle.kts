@@ -1,9 +1,9 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.hilt)
-    kotlin("kapt")
 }
 
 android {
@@ -19,7 +19,10 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "QR_BASE_URL", "\"https://example.com/\"")
+        val localProperties = Properties().apply {
+            load(rootProject.file("local.properties").inputStream())
+        }
+        buildConfigField("String", "QR_BASE_URL", "\"${localProperties.getProperty("BASE_URL")}\"")
     }
 
     buildTypes {
@@ -64,11 +67,6 @@ dependencies {
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
-
-    // Hilt
-    implementation("com.google.dagger:hilt-android:2.49")
-    kapt("com.google.dagger:hilt-compiler:2.49")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 
     // Accompanist
     implementation("com.google.accompanist:accompanist-permissions:0.32.0")
