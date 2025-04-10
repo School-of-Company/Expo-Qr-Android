@@ -2,11 +2,10 @@ package com.school_of_company.expoqrandroid.network
 
 import android.util.Log
 import com.school_of_company.expoqrandroid.BuildConfig
-import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object NetworkModule {
@@ -25,15 +24,11 @@ object NetworkModule {
             .build()
     }
 
-    val moshi: Moshi by lazy {
-        Moshi.Builder().build()
-    }
-
     val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BuildConfig.QR_BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 }
