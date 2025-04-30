@@ -1,5 +1,11 @@
+@file:OptIn(ExperimentalPermissionsApi::class)
+
 package com.school_of_company.expoqrandroid.qr.view
 
+import android.Manifest
+import android.content.Intent
+import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -9,29 +15,46 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
 import com.school_of_company.expoqrandroid.R
 import com.school_of_company.expoqrandroid.qr.view.component.QrcodeScanView
 import com.school_of_company.expoqrandroid.ui.theme.ExpoQrAndroidTheme
 import com.school_of_company.expoqrandroid.ui.theme.Typography
 import com.school_of_company.expoqrandroid.util.ThemeDevicePreviews
-
+import org.json.JSONObject
 
 @androidx.annotation.OptIn(androidx.camera.core.ExperimentalGetImage::class)
 @Composable
-private fun QrScannerScreen(
+fun QrScannerScreen(
     modifier: Modifier = Modifier,
     lifecycleOwner: LifecycleOwner,
-    onQrcodeScan: (String) -> Unit,
+    navController: NavController
 ) {
+
+    val cameraPermissionState = rememberPermissionState(Manifest.permission.CAMERA)
+
+    LaunchedEffect(Unit) {
+        if (!cameraPermissionState.status.isGranted) {
+            cameraPermissionState.launchPermissionRequest()
+        }
+    }
+    val context = LocalContext.current
+
     ExpoQrAndroidTheme {
         Box(
             modifier = modifier
@@ -52,7 +75,20 @@ private fun QrScannerScreen(
                     )
 
                     QrcodeScanView(
-                        onQrcodeScan = onQrcodeScan,
+                        onQrcodeScan = { qrContent ->
+                            try {
+                                val json = JSONObject(qrContent)
+                                val participantId = json.getString("participantId")
+                                val phoneNumber = json.getString("phoneNumber")
+
+                                val url = "https://startup-expo.kr/application/$participantId?formType=survey&userType=STANDARD&applicationType=register&phoneNumber=$phoneNumber"
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                                context.startActivity(intent)
+
+                            } catch (e: Exception) {
+                                Log.e("QrScanner", "QR 파싱 실패", e)
+                            }
+                        },
                         lifecycleOwner = lifecycleOwner,
                         modifier = Modifier
                             .fillMaxSize()
@@ -76,7 +112,7 @@ private fun QrScannerPreview() {
     val lifecycleOwner = LocalLifecycleOwner.current
     QrScannerScreen(
         lifecycleOwner = lifecycleOwner,
-        onQrcodeScan = {},
-        modifier = Modifier
+        modifier = Modifier,
+        navController = rememberNavController()
     )
 }
