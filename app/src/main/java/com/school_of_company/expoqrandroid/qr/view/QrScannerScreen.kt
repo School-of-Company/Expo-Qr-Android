@@ -47,13 +47,13 @@ fun QrScannerScreen(
 ) {
 
     val cameraPermissionState = rememberPermissionState(Manifest.permission.CAMERA)
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         if (!cameraPermissionState.status.isGranted) {
             cameraPermissionState.launchPermissionRequest()
         }
     }
-    val context = LocalContext.current
 
     ExpoQrAndroidTheme {
         Box(
