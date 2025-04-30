@@ -55,8 +55,6 @@ fun QrScannerScreen(
             cameraPermissionState.launchPermissionRequest()
         }
     }
-
-    ExpoQrAndroidTheme {
         Box(
             modifier = modifier.fillMaxSize()
                 .background(Color.White)
