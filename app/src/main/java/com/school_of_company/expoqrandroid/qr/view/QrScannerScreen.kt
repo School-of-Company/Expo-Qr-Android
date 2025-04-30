@@ -105,7 +105,6 @@ fun QrScannerScreen(
             }
         }
     }
-}
 
 @ThemeDevicePreviews
 @Composable
