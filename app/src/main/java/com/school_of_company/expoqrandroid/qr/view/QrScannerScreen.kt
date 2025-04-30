@@ -6,6 +6,7 @@ import android.Manifest
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -87,6 +88,7 @@ fun QrScannerScreen(
 
                             } catch (e: Exception) {
                                 Log.e("QrScanner", "QR 파싱 실패", e)
+                                Toast.makeText(context, "QR 코드 파싱에 실패했습니다.", Toast.LENGTH_SHORT).show()
                             }
                         },
                         lifecycleOwner = lifecycleOwner,
