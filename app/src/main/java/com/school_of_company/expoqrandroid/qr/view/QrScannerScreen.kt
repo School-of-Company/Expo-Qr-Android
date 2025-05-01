@@ -4,8 +4,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,37 +41,73 @@ private fun QrScannerScreen(
                 .fillMaxSize()
                 .background(Color.White)
         ) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 68.dp),
+                horizontalAlignment = Alignment.Start
             ) {
-                Column(horizontalAlignment = Alignment.Start) {
-                    Text(
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp, vertical = 20.dp)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.expoicon),
+                        contentDescription = "EXPO 로고",
                         modifier = Modifier
-                            .padding(horizontal = 16.dp, vertical = 20.dp),
+                    )
+
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    Text(
                         text = "QR코드 찍기",
                         style = Typography.bodyLarge,
                         color = Color.Black,
                     )
-
+                }
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(start = 16.dp, end = 16.dp, bottom = 148.dp)
+                ) {
                     QrcodeScanView(
                         onQrcodeScan = onQrcodeScan,
                         lifecycleOwner = lifecycleOwner,
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(start = 16.dp, end = 16.dp, bottom = 83.dp)
                             .clip(RoundedCornerShape(6.dp))
                     )
+                    Image(
+                        painter = painterResource(id = R.drawable.qr_guide),
+                        contentDescription = stringResource(id = R.string.qr_guide),
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                    )
                 }
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 114.dp)
+            ) {
                 Image(
-                    painter = painterResource(id = R.drawable.qr_guide),
+                    painter = painterResource(id = R.drawable.exclamationmark),
                     contentDescription = stringResource(id = R.string.qr_guide),
-                    modifier = modifier
+                    modifier = Modifier
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = "QR 가이드라인에 맞춰 카메라를 비춰주세요.",
+                    style = Typography.bodyMedium,
+                    color = Color.Gray,
                 )
             }
         }
     }
 }
+
 
 @ThemeDevicePreviews
 @Composable
