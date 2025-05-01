@@ -1,5 +1,10 @@
 package com.school_of_company.expoqrandroid.qr.view
 
+import android.Manifest
+import android.content.Intent
+import android.net.Uri
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,28 +17,42 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
 import com.school_of_company.expoqrandroid.R
 import com.school_of_company.expoqrandroid.qr.view.component.QrcodeScanView
 import com.school_of_company.expoqrandroid.ui.theme.Typography
-import com.school_of_company.expoqrandroid.util.ThemeDevicePreviews
+import org.json.JSONObject
 
-
+@OptIn(ExperimentalPermissionsApi::class)
 @androidx.annotation.OptIn(androidx.camera.core.ExperimentalGetImage::class)
 @Composable
-private fun QrScannerScreen(
+internal fun QrScannerScreen(
     modifier: Modifier = Modifier,
-    lifecycleOwner: LifecycleOwner,
-    onQrcodeScan: (String) -> Unit,
 ) {
+    val cameraPermissionState = rememberPermissionState(Manifest.permission.CAMERA)
+
+    val context = LocalContext.current
+    val lifecycleOwner = context as? LifecycleOwner
+        ?: throw IllegalStateException("Context is not a LifecycleOwner")
+
+    LaunchedEffect(Unit) {
+        if (!cameraPermissionState.status.isGranted) {
+            cameraPermissionState.launchPermissionRequest()
+        }
+    }
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -80,7 +99,21 @@ private fun QrScannerScreen(
             ) {
 
                 QrcodeScanView(
-                    onQrcodeScan = onQrcodeScan,
+                     onQrcodeScan = { qrContent ->
+                        try {
+                            val json = JSONObject(qrContent)
+                            val participantId = json.getString("participantId")
+                            val phoneNumber = json.getString("phoneNumber")
+
+                            val url = "https://startup-expo.kr/application/$participantId?formType=survey&userType=STANDARD&applicationType=register&phoneNumber=$phoneNumber"
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                            context.startActivity(intent)
+
+                        } catch (e: Exception) {
+                            Log.e("QrScanner", "QR 파싱 실패", e)
+                            Toast.makeText(context, "QR 코드 파싱에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    },
                     lifecycleOwner = lifecycleOwner,
                     modifier = Modifier
                         .fillMaxSize()
@@ -119,13 +152,4 @@ private fun QrScannerScreen(
 }
 
 
-@ThemeDevicePreviews
-@Composable
-private fun QrScannerPreview() {
-    val lifecycleOwner = LocalLifecycleOwner.current
-    QrScannerScreen(
-        lifecycleOwner = lifecycleOwner,
-        onQrcodeScan = {},
-        modifier = Modifier
-    )
-}
+
