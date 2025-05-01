@@ -84,12 +84,10 @@ dependencies {
     implementation("com.google.mlkit:barcode-scanning:17.0.3")
 
     // Network
+    implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11")
-
-    debugImplementation("com.readystatesoftware.chuck:library:1.1.0")
-    releaseImplementation("com.readystatesoftware.chuck:library-no-op:1.1.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
