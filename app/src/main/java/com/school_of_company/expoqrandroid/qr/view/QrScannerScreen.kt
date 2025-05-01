@@ -36,22 +36,26 @@ private fun QrScannerScreen(
     onQrcodeScan: (String) -> Unit,
 ) {
     ExpoQrAndroidTheme {
+
         Box(
             modifier = modifier
                 .fillMaxSize()
                 .background(Color.White)
         ) {
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(top = 68.dp),
                 horizontalAlignment = Alignment.Start
             ) {
+
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .padding(horizontal = 16.dp, vertical = 20.dp)
                 ) {
+
                     Image(
                         painter = painterResource(id = R.drawable.expoicon),
                         contentDescription = "EXPO 로고",
@@ -66,11 +70,13 @@ private fun QrScannerScreen(
                         color = Color.Black,
                     )
                 }
+
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(start = 16.dp, end = 16.dp, bottom = 148.dp)
                 ) {
+
                     QrcodeScanView(
                         onQrcodeScan = onQrcodeScan,
                         lifecycleOwner = lifecycleOwner,
@@ -78,6 +84,7 @@ private fun QrScannerScreen(
                             .fillMaxSize()
                             .clip(RoundedCornerShape(6.dp))
                     )
+
                     Image(
                         painter = painterResource(id = R.drawable.qr_guide),
                         contentDescription = stringResource(id = R.string.qr_guide),
@@ -86,18 +93,21 @@ private fun QrScannerScreen(
                     )
                 }
             }
+
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .padding(bottom = 114.dp)
             ) {
+
                 Image(
                     painter = painterResource(id = R.drawable.exclamationmark),
                     contentDescription = stringResource(id = R.string.qr_guide),
                     modifier = Modifier
                 )
                 Spacer(modifier = Modifier.width(8.dp))
+
                 Text(
                     text = "QR 가이드라인에 맞춰 카메라를 비춰주세요.",
                     style = Typography.bodyMedium,
@@ -107,7 +117,6 @@ private fun QrScannerScreen(
         }
     }
 }
-
 
 @ThemeDevicePreviews
 @Composable
