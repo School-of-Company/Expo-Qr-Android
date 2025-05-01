@@ -58,7 +58,6 @@ private fun QrScannerScreen(
                     Image(
                         painter = painterResource(id = R.drawable.expoicon),
                         contentDescription = "EXPO 로고",
-                        modifier = Modifier
                     )
 
                     Spacer(modifier = Modifier.weight(1f))
