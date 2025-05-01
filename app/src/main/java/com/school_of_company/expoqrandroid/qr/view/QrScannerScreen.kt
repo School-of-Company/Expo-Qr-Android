@@ -72,7 +72,11 @@ private fun QrScannerScreen(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(start = 16.dp, end = 16.dp, bottom = 148.dp)
+                    .padding(
+                        start = 16.dp,
+                        end = 16.dp,
+                        bottom = 148.dp
+                    )
             ) {
 
                 QrcodeScanView(
