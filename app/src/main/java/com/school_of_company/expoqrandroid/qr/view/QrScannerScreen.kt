@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
 import com.school_of_company.expoqrandroid.R
 import com.school_of_company.expoqrandroid.qr.view.component.QrcodeScanView
-import com.school_of_company.expoqrandroid.ui.theme.ExpoQrAndroidTheme
 import com.school_of_company.expoqrandroid.ui.theme.Typography
 import com.school_of_company.expoqrandroid.util.ThemeDevicePreviews
 
@@ -50,7 +49,10 @@ private fun QrScannerScreen(
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp)
+                modifier = Modifier.padding(
+                    horizontal = 16.dp,
+                    vertical = 20.dp
+                )
             ) {
 
                 Image(
