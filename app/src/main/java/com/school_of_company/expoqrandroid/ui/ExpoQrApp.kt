@@ -12,7 +12,6 @@ import com.school_of_company.expoqrandroid.qr.view.QrScannerScreen
 fun ExpoQrApp() {
     val navController = rememberNavController()
 
-
     NavHost(
         navController = navController,
         startDestination = "app"
