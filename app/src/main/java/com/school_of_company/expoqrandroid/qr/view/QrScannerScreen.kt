@@ -52,8 +52,7 @@ private fun QrScannerScreen(
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp, vertical = 20.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp)
                 ) {
 
                     Image(
@@ -88,8 +87,7 @@ private fun QrScannerScreen(
                     Image(
                         painter = painterResource(id = R.drawable.qr_guide),
                         contentDescription = stringResource(id = R.string.qr_guide),
-                        modifier = Modifier
-                            .align(Alignment.Center)
+                        modifier = Modifier.align(Alignment.Center)
                     )
                 }
             }
@@ -104,8 +102,8 @@ private fun QrScannerScreen(
                 Image(
                     painter = painterResource(id = R.drawable.exclamationmark),
                     contentDescription = stringResource(id = R.string.qr_guide),
-                    modifier = Modifier
                 )
+
                 Spacer(modifier = Modifier.width(8.dp))
 
                 Text(
