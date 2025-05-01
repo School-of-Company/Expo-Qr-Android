@@ -60,10 +60,10 @@ internal fun QrScannerScreen(
     ) {
 
         Column(
+            horizontalAlignment = Alignment.Start,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(top = 68.dp),
-            horizontalAlignment = Alignment.Start
         ) {
 
             Row(
