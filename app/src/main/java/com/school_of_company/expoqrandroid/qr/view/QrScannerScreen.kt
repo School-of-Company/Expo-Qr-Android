@@ -100,19 +100,20 @@ internal fun QrScannerScreen(
 
                 QrcodeScanView(
                      onQrcodeScan = { qrContent ->
-                        try {
-                            val json = JSONObject(qrContent)
-                            val participantId = json.getString("participantId")
-                            val phoneNumber = json.getString("phoneNumber")
+                         try {
+                             val json = JSONObject(qrContent)
 
-                            val url = "https://startup-expo.kr/application/$participantId?formType=survey&userType=STANDARD&applicationType=register&phoneNumber=$phoneNumber"
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                            context.startActivity(intent)
+                             val expoId = json.getString("expoId")
+                             val phoneNumber = json.getString("phoneNumber")
 
-                        } catch (e: Exception) {
-                            Log.e("QrScanner", "QR 파싱 실패", e)
-                            Toast.makeText(context, "QR 코드 파싱에 실패했습니다.", Toast.LENGTH_SHORT).show()
-                        }
+                             val url = "https://startup-expo.kr/application/$expoId?formType=survey&userType=STANDARD&applicationType=register&phoneNumber=$phoneNumber"
+                             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                             context.startActivity(intent)
+
+                         } catch (e: Exception) {
+                             Log.e("QrScanner", "QR 파싱 실패", e)
+                             Toast.makeText(context, "박람회를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show()
+                         }
                     },
                     lifecycleOwner = lifecycleOwner,
                     modifier = Modifier
