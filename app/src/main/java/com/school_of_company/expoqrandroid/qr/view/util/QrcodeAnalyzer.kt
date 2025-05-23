@@ -22,14 +22,15 @@ internal class QrcodeAnalyzer(
 
     @androidx.annotation.OptIn(androidx.camera.core.ExperimentalGetImage::class)
     override fun analyze(imageProxy: ImageProxy) {
-        // ImageProxy에서 MediaImage를 가져옴. null인 경우 작업 중단.
-        val mediaImage = imageProxy.image ?: run {
+        val mediaImage = imageProxy.image
+        if (mediaImage == null) {
+            Log.e("QrcodeAnalyzer", "mediaImage is null")
             imageProxy.close()
             return
         }
 
-        // MediaImage를 ML Kit에서 사용할 수 있는 InputImage로 변환
-        val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
+        val rotation = imageProxy.imageInfo.rotationDegrees
+        val image = InputImage.fromMediaImage(mediaImage, rotation)
 
         // QR 코드 스캔 시작
         scanner.process(image)
