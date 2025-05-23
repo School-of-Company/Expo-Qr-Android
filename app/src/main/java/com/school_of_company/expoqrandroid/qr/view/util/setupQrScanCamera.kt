@@ -32,7 +32,7 @@ internal fun setupQrScanCamera(
 
         try {
             // 후면 카메라를 선택
-            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+            val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
 
             // 카메라 프리뷰 설정 (buildPreview는 프리뷰를 생성하는 함수)
             val preview = buildPreview(previewView)
