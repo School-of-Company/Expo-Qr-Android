@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -124,7 +125,7 @@ internal fun QrScannerScreen(
                 Image(
                     painter = painterResource(id = R.drawable.qr_guide),
                     contentDescription = stringResource(id = R.string.qr_guide),
-                    modifier = Modifier.align(Alignment.Center)
+                    modifier = Modifier.align(Alignment.Center).size(400.dp)
                 )
             }
         }
